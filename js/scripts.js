@@ -15,20 +15,18 @@ function playerRoll() {
   var roll = dieRoll();
   if (roll === 1) {
     pigGame.turnScore = 0;
-    alert("Pig down! And so is your turn!");
+    alertEndTurn();
     switchPlayer();
-    $("#playerStatus").text(pigGame.playerUp);
   } else {
     pigGame.turnScore += roll;
     if (pigGame.playerUp === 1) {
-      if (pigGame.turnScore + pigGame.player1Score >= 100) {
-        alert("PLAYER 1 WINZ!");
+      if (pigGame.turnScore + pigGame.player1Score >= 20) {
+        alertWinner(1);
       }
-    } else if (pigGame.turnScore + pigGame.player2Score >= 100) {
-      alert("PLAYER 2 WINZ!");
+    } else if (pigGame.turnScore + pigGame.player2Score >= 20) {
+      alertWinner(2);
     }
   }
-  console.log(pigGame.turnScore);
   return roll;
 }
 
@@ -42,7 +40,6 @@ function holdThePig() {
   pigGame.turnScore = 0;
   switchPlayer();
 }
-
 function switchPlayer() {
   if (pigGame.playerUp === 1) {
     pigGame.playerUp = 2;
@@ -50,17 +47,36 @@ function switchPlayer() {
     pigGame.playerUp = 1;
   }
 }
-
+function resetGame() {
+  pigGame.player1Score = 0;
+  pigGame.player2Score = 0;
+  pigGame.playerUp = 1;
+  pigGame.turnScore = 0;
+}
 
 // Frontend Logic
+function alertEndTurn() {
+  alert("Pig down! And so is your turn!");
+  $("#playerStatus").text(pigGame.playerUp);
+}
+
+function alertWinner(playerNumber) {
+  alert("Player " + playerNumber + " wins!");
+  resetGame();
+  $(".gameStatusDisplay").text(0);
+}
+
 $(document).ready(function() {
+
   $("#rollPig").click(function() {
-    playerRoll();
+    whatWasRolled = playerRoll();
+    $("#rollResult").text(whatWasRolled);
     $("#turnScore").text(pigGame.turnScore);
   });
 
   $("#holdPig").click(function() {
     holdThePig();
+    $("#rollResult").text("");
     $("#player1Score").text(pigGame.player1Score);
     $("#player2Score").text(pigGame.player2Score);
     $("#playerStatus").text(pigGame.playerUp);
