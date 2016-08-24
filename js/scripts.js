@@ -17,6 +17,7 @@ function playerRoll() {
   if (roll === 1) {
     pigGame.turnStatus = false;
     pigGame.turnScore = 0;
+    alert("Bad luck, hoss, you rolled a 1");
   } else {
     pigGame.turnScore += roll;
   }
@@ -24,11 +25,20 @@ function playerRoll() {
   return roll;
 }
 
+function endTurnVoluntarily() {
+  pigGame.playerAScore += pigGame.turnScore;
+  pigGame.turnScore = 0;
+}
 
 
 // Frontend Logic
 $(document).ready(function() {
   $("#rollPig").click(function() {
     playerRoll();
+    $("#turnScore").text(pigGame.turnScore);
+  });
+  $("#holdPig").click(function() {
+    endTurnVoluntarily();
+    $("#playerAScore").text(pigGame.playerAScore);
   });
 });
