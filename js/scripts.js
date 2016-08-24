@@ -2,7 +2,9 @@
 var pigGame = {
   playerAScore: 0,
   playerBScore: 0,
-  playerTurn: "A"
+  playerTurn: "A",
+  turnStatus: true,
+  turnScore: 0
 };
 
 function dieRoll() {
@@ -11,27 +13,22 @@ function dieRoll() {
 }
 
 function playerRoll() {
-  var turnScore = 0;
   var roll = dieRoll();
   if (roll === 1) {
-    console.log("Turn over");
+    pigGame.turnStatus = false;
+    pigGame.turnScore = 0;
   } else {
-    turnScore += roll;
-    console.log(turnScore);
+    pigGame.turnScore += roll;
   }
-  return turnScore;
+  console.log(pigGame.turnScore);
+  return roll;
 }
 
-// function turnRoll(
-// function playerTurn() {
-//   var turnTotal = 0;
-//   roll = dieRoll();
-//   if (roll === 1) {
-//     *playerScore* = 0;
-//     *turnOver* = true;
-//   } else {
-//     turnTotal += roll;
-//   }
-// }
+
 
 // Frontend Logic
+$(document).ready(function() {
+  $("#rollPig").click(function() {
+    playerRoll();
+  });
+});
