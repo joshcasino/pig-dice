@@ -20,10 +20,10 @@ function playerRoll() {
   } else {
     pigGame.turnScore += roll;
     if (pigGame.playerUp === 1) {
-      if (pigGame.turnScore + pigGame.player1Score >= 20) {
+      if (pigGame.turnScore + pigGame.player1Score >= 100) {
         alertWinner(1);
       }
-    } else if (pigGame.turnScore + pigGame.player2Score >= 20) {
+    } else if (pigGame.turnScore + pigGame.player2Score >= 100) {
       alertWinner(2);
     }
   }
@@ -67,7 +67,6 @@ function alertWinner(playerNumber) {
 }
 
 $(document).ready(function() {
-
   $("#rollPig").click(function() {
     whatWasRolled = playerRoll();
     $("#rollResult").text(whatWasRolled);

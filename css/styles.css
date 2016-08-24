@@ -1,0 +1,6 @@
+.jumbotron {
+  background-image: url(../img/pigroll.png);
+  text-align: center;
+  text-shadow: 5px 5px 10px pink; 
+  height: 338px;
+}
